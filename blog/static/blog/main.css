@@ -1,0 +1,121 @@
+/* ======================================
+   Django Blog — main.css
+   Updated for Bootstrap 5.3
+   ====================================== */
+
+/* ---- Base ---- */
+body {
+  background: #fafafa;
+  color: #333333;
+  margin-top: 5rem; /* offset for fixed-top navbar */
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: #444444;
+}
+
+ul {
+  margin: 0;
+}
+
+/* ---- Navbar ---- */
+.bg-steel {
+  background-color: #5f788a;
+}
+
+.site-header .navbar-nav .nav-link {
+  color: #cbd5db;
+  transition: color 0.2s ease;
+}
+
+.site-header .navbar-nav .nav-link:hover,
+.site-header .navbar-nav .nav-link:focus {
+  color: #ffffff;
+}
+
+/* Bootstrap 5 uses .active directly on .nav-link */
+.site-header .navbar-nav .nav-link.active {
+  font-weight: 600;
+  color: #ffffff;
+}
+
+/* ---- Sidebar ---- */
+.content-section {
+  background: #ffffff;
+  padding: 12px 20px;
+  border: 1px solid #dddddd;
+  border-radius: 6px;
+  margin-bottom: 20px;
+}
+
+/* ---- Article Cards ---- */
+.article-title {
+  color: #444444;
+  text-decoration: none;
+}
+
+a.article-title:hover {
+  color: #428bca;
+  text-decoration: none;
+}
+
+.article-content {
+  white-space: pre-line;
+}
+
+.article-img {
+  height: 65px;
+  width: 65px;
+  margin-right: 16px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.article-metadata {
+  padding-bottom: 4px;
+  margin-bottom: 6px;
+  border-bottom: 1px solid #e3e3e3;
+  font-size: 0.875rem;
+}
+
+.article-metadata a:hover {
+  color: #333;
+  text-decoration: none;
+}
+
+/* Bootstrap Icons replace old inline SVGs — kept for legacy svg use */
+.article-svg {
+  width: 25px;
+  height: 25px;
+  vertical-align: middle;
+}
+
+/* ---- Account / Profile ---- */
+.account-img {
+  height: 125px;
+  width: 125px;
+  margin-right: 20px;
+  margin-bottom: 16px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.account-heading {
+  font-size: 2.5rem;
+}
+
+/* ---- Utility ---- */
+
+/* Smooth page feel */
+* {
+  box-sizing: border-box;
+}
+
+a {
+  transition: color 0.15s ease;
+}
