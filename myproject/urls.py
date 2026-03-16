@@ -18,6 +18,7 @@ Including another URLconf
 from django.contrib import admin
 from django.contrib.auth import views as auth_views
 from django.urls import include, path
+from django.views.generic import TemplateView
 
 urlpatterns = [
     path(
@@ -27,8 +28,13 @@ urlpatterns = [
     ),
     path(
         "logout/",
-        auth_views.LogoutView.as_view(template_name="users/logout.html"),
+        auth_views.LogoutView.as_view(),
         name="logout",
+    ),
+    path(
+        "logout-confirmation/",
+        TemplateView.as_view(template_name="users/logout.html"),
+        name="logout-confirmation",
     ),
     path("admin/", admin.site.urls),
     path("", include("blog.urls")),
