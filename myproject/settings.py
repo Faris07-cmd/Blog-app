@@ -65,6 +65,7 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
+                "users.profile.profile_processor",
             ],
         },
     },
@@ -131,5 +132,5 @@ LOGIN_URL = "login"
 
 MEDIA_ROOT = BASE_DIR / "media"
 MEDIA_URL = "/media/"
-print(MEDIA_ROOT)
+
 # ----
