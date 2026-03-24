@@ -1,4 +1,26 @@
-{% extends 'blog/base.html' %} {% load crispy_forms_tags %} {% block content %}
-<h1>{{ profile.name }}</h1>
-<p>{{ profile.bio }}</p>
+{% extends 'blog/base.html' %}
+{% load crispy_forms_tags %} 
+
+{% block content %}
+<div class="content-section">
+  <form method="POST">
+    {% csrf_token %}
+ <legend class="border-bottom mb-4">Join Today</legend>
+      {{ profile_form|crispy }}     
+      {{ user_form|crispy }}
+    <div class="media">
+      <img class="rounded-circle account-img" src="{{ profile.image.url}}">
+        
+        <div class="media-body">
+          <h1 class="account-heading">{{ profile.name }}</h1>
+          <h2 class="account-heading">{{ profile.bio }}</h2>
+          <p class="text-secondary">{{ user.email }}</p>
+        </div>
+    </div> 
+    <div class="form-group">
+      <button class="btn btn-outline-info" type="submit">submit</button>
+    </div>
+
+    <!-- FORM HERE -->
+</div>
 {% endblock content %}
