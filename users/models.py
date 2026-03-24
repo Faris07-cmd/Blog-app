@@ -11,11 +11,10 @@ class Profile(models.Model):
     def save(self, *args, **kwargs):
         try:
             old_profile = Profile.objects.get(user=self.user)
-            if old_profile:
-                old_profile_image.delete(save=Fasle)
-        except old_profile.DoesNotExist:
+            old_profile.image.delete(save=False)
+        except Profile.DoesNotExist:
             pass
-            super().save(*args, **args)
+        super().save(*args, **kwargs)
 
-        def __str__(self):
-            return f"{self.name} Profile"
+    def __str__(self):
+        return f"{self.name} Profile"
