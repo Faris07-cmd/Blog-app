@@ -1,2 +1,5 @@
 def profile_processor(request):
-    return {"profile": request.user.profile}
+    try:
+        return {"profile": request.user.profile}
+    except AttributeError:
+        return {}
