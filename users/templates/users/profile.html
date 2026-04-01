@@ -9,8 +9,9 @@
       {{ profile_form|crispy }}     
       {{ user_form|crispy }}
     <div class="media">
-      <img class="rounded-circle account-img" src="{{ profile.image.url}}">
-        
+      {% if profile %} 
+      <img class="rounded-circle account-img" src="{{ profile.im.url}}">
+      {% endif %}
         <div class="media-body">
           <h1 class="account-heading">{{ profile.name }}</h1>
           <h2 class="account-heading">{{ profile.bio }}</h2>
