@@ -23,25 +23,51 @@ def register(request):
 
 @login_required
 def profile(request):
-    if request.method == "POST":
-        user_form = UserForm(request.POST, instance=request.user)
-        profile_form = ProfileForm(
-            request.POST, request.FILES, instance=request.user.profile
-        )
-        if profile_form.is_valid() and user_form.is_valid():
-            profile_form.save()
-            user_form.save()
-            return redirect("blog-home")
+    prof = request.user
+    try:  # used try and except method to catch the error when a user is created but it has no profile
+        if request.method == "POST":
+            user_form = UserForm(request.POST, instance=prof)
+            profile_form = ProfileForm(
+                request.POST, request.FILES, instance=prof.profile
+            )
+            if profile_form.is_valid() and user_form.is_valid():
+                profile_form.save()
+                user_form.save()
+                return redirect("blog-home")
+            else:
+                for fields, errors in profile_form.errors.items():
+                    for error in errors:
+                        messages.warning(request, f"{fields}:{error}")
+                for fields, errors in user_form.errors.items():
+                    for error in errors:
+                        messages.warning(request, f"{fields}:{error}")
         else:
-            for fields, errors in profile_form.errors.items():
-                for error in errors:
-                    messages.warning(request, f"{fields}:{error}")
-            for fields, errors in user_form.errors.items():
-                for error in errors:
-                    messages.warning(request, f"{fields}:{error}")
-    else:
-        profile_form = ProfileForm(instance=request.user.profile)
-        user_form = UserForm(instance=request.user)
+            profile_form = ProfileForm(instance=request.user.profile)
+            user_form = UserForm(instance=request.user)
+    except Profile.DoesNotExist:
+        prof.profile = Profile.objects.create(
+            user=request.user, name="", bio="", image=""
+        )
+        if request.method == "POST":
+            user_form = UserForm(request.POST, instance=prof)
+            profile_form = ProfileForm(
+                request.POST, request.FILES, instance=prof.profile
+            )
+            if profile_form.is_valid() and user_form.is_valid():
+                profile_form.save()
+                user_form.save()
+                return redirect("blog-home")
+            else:
+                for fields, errors in profile_form.errors.items():
+                    for error in errors:
+                        messages.warning(request, f"{fields}:{error}")
+                for fields, errors in user_form.errors.items():
+                    for error in errors:
+                        messages.warning(request, f"{fields}:{error}")
+        else:
+            profile_form = ProfileForm(instance=request.user.profile)
+            user_form = UserForm(instance=request.user)
+
     return render(
         request,
         "users/profile.html",
