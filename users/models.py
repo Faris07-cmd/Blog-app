@@ -14,7 +14,7 @@ class Profile(models.Model):
         try:
             old_profile = Profile.objects.get(user=self.user)
             if old_profile.image:
-                old_profile.image.delete()
+                old_profile.image.delete(save=False)
             super().save(*args, **kwargs)
         except Profile.DoesNotExist:
             super().save(*args, **kwargs)
