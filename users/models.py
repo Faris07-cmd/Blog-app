@@ -8,7 +8,9 @@ class Profile(models.Model):
     bio = models.CharField(
         max_length=200,
     )
-    image = models.ImageField(upload_to="profiles/", blank=True)
+    image = models.ImageField(
+        upload_to="profiles/", default="profiles/default.jpg.webp", blank=True
+    )
 
     def save(self, *args, **kwargs):
         try:
