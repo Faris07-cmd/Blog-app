@@ -1,24 +1,27 @@
 from django.contrib import messages
-from django.shortcuts import redirect, render
-from django.views.generic import ListView
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.urls import reverse_lazy
+from django.views.generic import CreateView, ListView, TemplateView
 
 from .forms import PostForm
 from .models import Post
 
 
-def about(request):
-    return render(request, "blog/about.html")
+class About(TemplateView):
+    template_name = "blog/about.html"
 
 
-def post_form(request):
-    form = PostForm(request.POST or None)
-    if request.method == "POST" and form.is_valid():
-        Post.auhtor = request.user
-        form.save()
+class PostCreateView(LoginRequiredMixin, CreateView):
+    model = Post
+    form_class = PostForm
+    template_name = "blog/post.html"
+    success_url = reverse_lazy("blog-home")
+    login_url = reverse_lazy("login")
 
-        messages.success(request, "Posted")
-        return redirect("blog-home")
-    return render(request, "blog/post.html", {"form": form})
+    def form_valid(self, form):
+        form.instance.auhtor = self.request.user
+        messages.success(self.request, "Posted")
+        return super().form_valid(form)
 
 
 class PostListView(ListView):
